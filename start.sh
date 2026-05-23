@@ -25,9 +25,10 @@ fluxbox >/dev/null 2>&1 &
 x11vnc -display "${DISPLAY}" -forever -shared -nopw -quiet -rfbport "${VNC_PORT}" -bg
 
 # 4. Bridge: WebSocket (browser) ↔ raw VNC (x11vnc), and serve the noVNC HTML.
-#    --listen-host=:: dual-stacks IPv4+IPv6. Fly's internal proxy is IPv6;
-#    without this, the deploy looks healthy but is unreachable.
-websockify --listen-host=:: --web /usr/share/novnc "${NOVNC_PORT}" "localhost:${VNC_PORT}" >/dev/null 2>&1 &
+#    [::]:port binds IPv6, which on Linux dual-stacks IPv4 too. Required for
+#    Fly.io because fly-proxy connects over IPv6. The newer --listen-host flag
+#    isn't in the Debian-packaged websockify; the positional form is portable.
+websockify --web /usr/share/novnc "[::]:${NOVNC_PORT}" "localhost:${VNC_PORT}" >/dev/null 2>&1 &
 
 # 5. The Tk app — exec so it owns PID 1's child slot and signals propagate.
 cd /app
