@@ -32,6 +32,10 @@ COPY grid_fill.py app.py ui.py tools.py renderer.py state.py telemetry.py \
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
+# Drop a redirecting index.html into noVNC's web root so the bare site URL
+# auto-loads the canvas instead of showing a directory listing.
+COPY index.html /usr/share/novnc/index.html
+
 ENV DISPLAY=:1 \
     SCREEN_WIDTH=1920 \
     SCREEN_HEIGHT=1200 \
