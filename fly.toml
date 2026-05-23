@@ -1,0 +1,20 @@
+# gridfill on Fly.io
+# Deploys the pre-built image from ghcr.io directly (no rebuild on Fly's builder).
+
+app = "gridfill"
+primary_region = "phx"
+
+[build]
+  image = "ghcr.io/mlpsychai/gridfill:latest"
+
+[http_service]
+  internal_port = 6080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
