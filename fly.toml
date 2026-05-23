@@ -2,7 +2,7 @@
 # Deploys the pre-built image from ghcr.io directly (no rebuild on Fly's builder).
 
 app = "gridfill"
-primary_region = "phx"
+primary_region = "lax"
 
 [build]
   image = "ghcr.io/mlpsychai/gridfill:latest"
