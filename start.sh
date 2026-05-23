@@ -22,7 +22,12 @@ fluxbox >/dev/null 2>&1 &
 # 3. VNC server bound to the Xvfb display.
 #    -nopw: no VNC password (this is a public demo, no data behind it).
 #    -shared: allow multiple concurrent viewers.
-x11vnc -display "${DISPLAY}" -forever -shared -nopw -quiet -rfbport "${VNC_PORT}" -bg
+#    -defer 1 / -wait 5 / -nonap: cursor-drag tuning. Defaults batch updates
+#    for 40ms and poll every 30ms — fine for desktop kiosks, terrible for a
+#    drawing app where every motion event should ship immediately. Trades
+#    CPU for responsiveness.
+x11vnc -display "${DISPLAY}" -forever -shared -nopw -quiet -rfbport "${VNC_PORT}" \
+       -defer 1 -wait 5 -nonap -bg
 
 # 4. Bridge: WebSocket (browser) ↔ raw VNC (x11vnc), and serve the noVNC HTML.
 #    [::]:port binds IPv6, which on Linux dual-stacks IPv4 too. Required for
