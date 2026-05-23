@@ -1,0 +1,23 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Tooling state
+.claude/
+
+# Admin pipeline — local-only (Neon sync, telemetry server, embeddings)
+admin/
+
+# Output artifacts
+saved_svgs/
+jpeg/
+scr/
+
+# Asset packs not yet wired into the app (Kenney sprites).
+# Remove this rule and `git add assets/<pack>/` once a pack is actually
+# referenced by the code.
+assets/

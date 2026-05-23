@@ -1,0 +1,10 @@
+# gridfill — core app has zero third-party Python dependencies.
+# All imports resolve to stdlib (tkinter, pathlib, json, dataclasses, datetime,
+# typing, atexit, os, sys, random, secrets, socket, time) or local modules
+# (app, ui, tools, renderer, state, telemetry, copic_palette, curated_palettes).
+#
+# Tk is a system package, not pip: the Dockerfile installs `python3-tk`.
+#
+# The admin/ subtree (cairosvg, gensim, numba, umap, pynndescent, smart_open)
+# is NOT shipped in the container — those deps live in admin/requirements.txt
+# if/when that pipeline is containerized separately.
